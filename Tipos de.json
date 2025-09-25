@@ -1,0 +1,476 @@
+{
+  "name": "Tipos de",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw",
+          "mode": "list",
+          "cachedResultName": "Second Project UDEMY",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 53600190,
+          "mode": "list",
+          "cachedResultName": "Tipos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw/edit#gid=53600190"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "122dfcbf-c0f9-418c-a2fe-43d215538c53",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "RHGlr5nYOz0ErbzY",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.texto }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "programación",
+              "description": "textos sobre códigos, lenguajes de programación y similares"
+            },
+            {
+              "category": "Música"
+            },
+            {
+              "category": "Videojuegos"
+            },
+            {
+              "category": "Genérica",
+              "description": "textos que no estén en las otras categorías"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7789ce18-115d-4f55-94cf-204bc08c2ce2",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        144,
+        208
+      ],
+      "id": "53fbab32-a670-4ab5-b0a9-0b77dad32ff8",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "RAxzvgRA7PM3AuEQ",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw",
+          "mode": "list",
+          "cachedResultName": "Second Project UDEMY",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 53600190,
+          "mode": "list",
+          "cachedResultName": "Tipos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw/edit#gid=53600190"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "texto": "={{ $('Google Sheets Trigger').item.json.texto }}",
+            "tipo": "=Programación"
+          },
+          "matchingColumns": [
+            "texto"
+          ],
+          "schema": [
+            {
+              "id": "texto",
+              "displayName": "texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        -208
+      ],
+      "id": "ebfefce3-fd52-49ee-a283-65a67a9e929c",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PjdES6IqamENNd0F",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw",
+          "mode": "list",
+          "cachedResultName": "Second Project UDEMY",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 53600190,
+          "mode": "list",
+          "cachedResultName": "Tipos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw/edit#gid=53600190"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "texto": "={{ $('Google Sheets Trigger').item.json.texto }}",
+            "tipo": "Música"
+          },
+          "matchingColumns": [
+            "texto"
+          ],
+          "schema": [
+            {
+              "id": "texto",
+              "displayName": "texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        -48
+      ],
+      "id": "2df160b5-a06d-499b-9595-6b21b18df468",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PjdES6IqamENNd0F",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw",
+          "mode": "list",
+          "cachedResultName": "Second Project UDEMY",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 53600190,
+          "mode": "list",
+          "cachedResultName": "Tipos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw/edit#gid=53600190"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "texto": "={{ $('Google Sheets Trigger').item.json.texto }}",
+            "tipo": "Videojuegos"
+          },
+          "matchingColumns": [
+            "texto"
+          ],
+          "schema": [
+            {
+              "id": "texto",
+              "displayName": "texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        128
+      ],
+      "id": "3607b889-2552-4ace-825f-21b7838a4c39",
+      "name": "Update row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PjdES6IqamENNd0F",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw",
+          "mode": "list",
+          "cachedResultName": "Second Project UDEMY",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 53600190,
+          "mode": "list",
+          "cachedResultName": "Tipos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LbJ6awbJexApLgg4SGhArHnbulIeSgve3P7l-Vu_lIw/edit#gid=53600190"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "texto": "={{ $('Google Sheets Trigger').item.json.texto }}",
+            "tipo": "Generíca"
+          },
+          "matchingColumns": [
+            "texto"
+          ],
+          "schema": [
+            {
+              "id": "texto",
+              "displayName": "texto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        288
+      ],
+      "id": "2c4b52ed-3e87-4da8-a04b-974c7087736f",
+      "name": "Update row in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PjdES6IqamENNd0F",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ca119e45-9940-4d3b-a8b9-7fa2383b5c93",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "040e9181a7628b74a8e1604b2fd4c87a5c8d013f6cdd0de4feb9ee791dc49480"
+  },
+  "id": "5ayByEvj0wij7RfB",
+  "tags": []
+}
